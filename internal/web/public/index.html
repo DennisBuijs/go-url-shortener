@@ -3,10 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>URL Shortener</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: "IBM Plex Sans", sans-serif;
+            color: var(--text);
+        }
+
+        html {
+            --background: #FFFAFB;
+            --text: #001B2E;
+            --accent: #5EB1BF;
+        }
+
+        body {
+            text-align: center;
+            background: var(--background);
+            margin: 128px 0 0 0;
+        }
+
+        input {
+            padding: 8px 16px 8px 8px;
+            width: 50vw;
+            border: 2px solid var(--text);
+            border-radius: 4px;
+            font-size: 24px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        button {
+            background: var(--accent);
+            padding: 8px 16px;
+            font-size: 24px;
+            border: 2px solid var(--text);
+            border-radius: 0 4px 4px 0;
+            margin-left: -16px;
+        }
+    </style>
 </head>
 <body>
 
 <h1>URL Shortener</h1>
+<p>Simply enter your URL and click submit!</p>
+
+<form action="/web/url" method="post">
+    <input type="url" autofocus>
+    <button type="submit">Submit</button>
+</form>
 
 </body>
 </html>
