@@ -1,6 +1,8 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+)
 
 func main() {
 	http.HandleFunc("/status", statusHandler)
@@ -8,5 +10,9 @@ func main() {
 }
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+	}
+
 	w.WriteHeader(http.StatusOK)
 }
