@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"html/template"
 	"net/http"
 )
 
@@ -13,6 +14,7 @@ func main() {
 
 	router.HandleFunc("/{code}", redirectHandler)
 
+	router.HandleFunc("/", indexPageHandler)
 	router.HandleFunc("/web/url", postUrlHandler)
 
 	http.Handle("/", router)
@@ -36,6 +38,15 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Code: %s", code)
+}
+
+func indexPageHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+	}
+
+	t, _ := template.ParseFiles("../internal/web/public/index.html")
+	t.Execute(w, nil)
 }
 
 func postUrlHandler(w http.ResponseWriter, r *http.Request) {
