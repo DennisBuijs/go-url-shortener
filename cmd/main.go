@@ -24,6 +24,9 @@ func main() {
 	router.HandleFunc("/web/url", webInterface.CreateUrlViaWebUiHandler).Methods(http.MethodPost)
 	router.HandleFunc("/api/url", webInterface.CreateUrlViaApiHandler).Methods(http.MethodPost)
 
+	fs := http.FileServer(http.Dir("../internal/web/public/"))
+	router.PathPrefix("/public/").Handler(http.StripPrefix("/public/", fs))
+
 	http.Handle("/", router)
 	http.ListenAndServe("127.0.0.1:3000", router)
 }
