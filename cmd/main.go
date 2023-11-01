@@ -5,6 +5,8 @@ import (
 	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
+	"url-shortener/internal/adapters/secondary/memory"
+	"url-shortener/internal/core/domain"
 )
 
 func main() {
@@ -54,7 +56,14 @@ func postUrlHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 
-	// Handle form submission
+	r.ParseForm()
+
+	url := domain.NewUrl(r.FormValue("url"))
+
+	repository, _ := memory.NewUrlRepository()
+	repository.Add(url)
 
 	w.WriteHeader(http.StatusOK)
+	t, _ := template.ParseFiles("../internal/web/public/url_detail.html")
+	t.Execute(w, url)
 }

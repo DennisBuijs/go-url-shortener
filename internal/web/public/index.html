@@ -33,6 +33,10 @@
             font-size: 24px;
         }
 
+        input.short {
+            width: 30vw;
+        }
+
         input:focus {
             outline: none;
         }
@@ -45,6 +49,10 @@
             border-radius: 0 4px 4px 0;
             margin-left: -16px;
         }
+
+        #response {
+            margin-top: 64px;
+        }
     </style>
 
     <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
@@ -55,7 +63,7 @@
 <p>Simply enter your URL and click submit!</p>
 
 <form hx-post="/web/url" hx-target="#response">
-    <input type="url" autofocus>
+    <input type="url" autofocus name="url">
     <button type="submit">Submit</button>
 </form>
 
