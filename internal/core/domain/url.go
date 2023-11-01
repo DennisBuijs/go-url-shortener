@@ -26,5 +26,5 @@ func GenerateShortCode() string {
 }
 
 func (url Url) GetShortUrl() string {
-	return "https://my-short-url.com/" + url.Code
+	return "http://localhost:3000/" + url.Code
 }

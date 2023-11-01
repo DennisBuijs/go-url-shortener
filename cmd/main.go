@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
@@ -42,10 +41,17 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 
+	urlRepository, _ := memory.NewUrlRepository()
 	code := mux.Vars(r)["code"]
+	url, err := urlRepository.FindByCode(code)
 
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Code: %s", code)
+	if err != nil {
+		http.Error(w, "URL with code '"+code+"' not found", http.StatusNotFound)
+		return
+	}
+
+	http.Redirect(w, r, url.Url, http.StatusMovedPermanently)
+	return
 }
 
 func indexPageHandler(w http.ResponseWriter, r *http.Request) {
