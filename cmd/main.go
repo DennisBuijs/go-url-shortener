@@ -5,12 +5,14 @@ import (
 	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
+	"url-shortener/internal/adapters/secondary/memory"
 	"url-shortener/internal/ports/web"
 	"url-shortener/internal/use_cases"
 )
 
 func main() {
-	createUrlUseCase := &use_cases.CreateUrlUseCase{}
+	urlRepository, _ := memory.NewUrlRepository()
+	createUrlUseCase := use_cases.NewCreateUrlUseCase(urlRepository)
 	webInterface := &web.WebInterface{CreateUrlUseCase: createUrlUseCase}
 
 	router := mux.NewRouter()

@@ -1,8 +1,17 @@
 package use_cases
 
-import "url-shortener/internal/core/domain"
+import (
+	"url-shortener/internal/core/domain"
+	"url-shortener/internal/ports"
+)
 
-type CreateUrlUseCase struct{}
+type CreateUrlUseCase struct {
+	UrlRepository ports.UrlRepository
+}
+
+func NewCreateUrlUseCase(urlRepository ports.UrlRepository) *CreateUrlUseCase {
+	return &CreateUrlUseCase{UrlRepository: urlRepository}
+}
 
 func (useCase *CreateUrlUseCase) CreateUrl(url string) domain.Url {
 	return domain.Url{

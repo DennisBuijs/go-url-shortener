@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"html/template"
 	"net/http"
-	"url-shortener/internal/adapters/secondary/memory"
 	"url-shortener/internal/use_cases"
 )
 
@@ -21,9 +20,7 @@ func (webInterface *WebInterface) CreateUrlViaWebUiHandler(w http.ResponseWriter
 	urlString := r.FormValue("url")
 
 	url := webInterface.CreateUrlUseCase.CreateUrl(urlString)
-
-	repository, _ := memory.NewUrlRepository()
-	repository.Add(url)
+	webInterface.CreateUrlUseCase.UrlRepository.Add(url)
 
 	w.WriteHeader(http.StatusOK)
 	t, _ := template.ParseFiles("../internal/web/public/url_detail.html")
@@ -45,9 +42,7 @@ func (webInterface *WebInterface) CreateUrlViaApiHandler(w http.ResponseWriter, 
 
 	urlString := requestData["url"]
 	url := webInterface.CreateUrlUseCase.CreateUrl(urlString)
-
-	repository, _ := memory.NewUrlRepository()
-	repository.Add(url)
+	webInterface.CreateUrlUseCase.UrlRepository.Add(url)
 
 	responseStruct := struct {
 		Url string `json:"url"`

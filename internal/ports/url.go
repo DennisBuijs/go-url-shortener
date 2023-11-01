@@ -5,7 +5,7 @@ import (
 )
 
 type UrlRepository interface {
-	Add(url domain.Url)
-	FindById(id uint64) (*domain.Url, error)
+	Add(url domain.Url) error
+	FindById(id int) (*domain.Url, error)
 	FindByCode(code string) (*domain.Url, error)
 }
