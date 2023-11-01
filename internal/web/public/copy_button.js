@@ -5,7 +5,7 @@ class CopyButton extends HTMLButtonElement {
         this.linkedInputId = this.getAttribute('for');
         this.linkedInput = document.getElementById(this.linkedInputId);
 
-        this.addEventListener('click', (e) => {
+        this.addEventListener('click', () => {
             if (!this.linkedInput) {
                 return;
             }
