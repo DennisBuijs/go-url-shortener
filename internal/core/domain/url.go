@@ -11,14 +11,7 @@ type Url struct {
 	Code string
 }
 
-func NewUrl(url string) Url {
-	return Url{
-		Url:  url,
-		Code: getCode(),
-	}
-}
-
-func getCode() string {
+func GenerateShortCode() string {
 	rand.Seed(time.Now().UnixNano())
 
 	allowedChars := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -33,5 +26,5 @@ func getCode() string {
 }
 
 func (url Url) GetShortUrl() string {
-	return "httsp://my-short-url.com/" + url.Code
+	return "https://my-short-url.com/" + url.Code
 }
