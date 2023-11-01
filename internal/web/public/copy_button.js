@@ -14,7 +14,11 @@ class CopyButton extends HTMLButtonElement {
             document.execCommand('copy');
             window.getSelection().removeAllRanges();
 
-            this.innerText = 'Copied!'
+            this.innerText = 'Copied!';
+
+            setTimeout(() => {
+                this.innerText = 'Copy';
+            }, 3000);
         });
     }
 }
