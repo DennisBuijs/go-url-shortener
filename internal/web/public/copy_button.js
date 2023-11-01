@@ -1,5 +1,7 @@
 class CopyButton extends HTMLButtonElement {
     connectedCallback() {
+        this.innerText = 'Copy'
+
         this.linkedInputId = this.getAttribute('for');
         this.linkedInput = document.getElementById(this.linkedInputId);
 
@@ -11,6 +13,8 @@ class CopyButton extends HTMLButtonElement {
             this.linkedInput.select();
             document.execCommand('copy');
             window.getSelection().removeAllRanges();
+
+            this.innerText = 'Copied!'
         });
     }
 }
